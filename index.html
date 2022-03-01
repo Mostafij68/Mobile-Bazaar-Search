@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <title>Mobile Bazaar</title>
@@ -18,24 +18,32 @@
         <section class="container">
             <!--------- Search field --------->
             <div class="row">
-                <div class="col-12">
-                    <div class="input-group w-50 mx-auto mb-3">
-                        <input type="text" class="form-control" placeholder="Search your chosen Mobile" aria-label="Search your chosen Mobile" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                <div class="col-xl-3 col-lg-3 col-md-2 col-sm-1"></div>
+                <div class="col-xl-6 col-lg-6 col-md-8 col-sm-10">
+                    <div class="input-group mb-5">
+                        <input id="search-field" type="text" class="form-control" placeholder="Search your chosen Mobile" aria-label="Search your chosen Mobile" aria-describedby="button-addon2">
+                        <button onclick="searchMobile()" class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
                       </div>
                 </div>
+                <div class="col-xl-3 col-lg-3 col-md-2 col-sm-1"></div>
             </div>
-            <!--------- Search result --------->
+
+            <!----------- result detail ----------->
             <div class="row">
-                <div class="col-xl-4"></div>
-                <div class="col-xl-4"></div>
-                <div class="col-xl-4"></div>
+                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-1"></div>
+            <div id="rasult-detail" class="col-xl-8 col-lg-8 col-md-8 col-sm-10"></div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-1"></div>
             </div>
+
+            <!--------- Search result --------->
+            
+            <div id="search-result" class="row row-cols-1 row-cols-md-3 g-5"> </div>
+
+
         </section>
     </main>
 
     <!-- JavaSrcipt -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="app.js"></script>
 </body>
 </html>
