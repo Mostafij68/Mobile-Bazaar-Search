@@ -25,7 +25,7 @@ const displayResult = (mobiles) => {
                 <div class="card-body">
                     <h5 class="card-title">${mobile.phone_name}</h5>
                     <p class="card-text">${mobile.brand}</p>
-                    <button onclick="loadMobileId('${mobile.slug}')" class="btn btn-info text-white">More Details</button>
+                    <button onclick="loadMobileId('${mobile.slug}')" class="btn  btn-outline-info">More Details</button>
                 </div>
             </div>
         `
@@ -39,30 +39,42 @@ const loadMobileId = mobileId => {
     const url = `https://openapi.programming-hero.com/api/phone/${mobileId}`;
     fetch(url)
     .then(res => res.json())
-    .then(data => displayResultDetail(data))
+    .then(data => displayResultDetail(data.data))
 };
 
-const displayResultDetail = (mobileDetail) => {
-    console.log(mobileDetail)
+const displayResultDetail = (mobileInfo) => {
+    console.log(mobileInfo)
     const resultDetail = document.getElementById('rasult-detail');
     resultDetail.textContent = '';
-
+    const resultCondition = condition =>{
+        if(condition == ''){
+            const noFound = 'Not found';
+            return noFound;
+        }
+        else{
+            return condition;
+        }
+    };
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
-        <img src="${mobileDetail.image}" class="card-img-top" alt="...">
+        <img src="${mobileInfo.image}" class="card-img-top p-5" alt="...">
         <div class="card-body">
-        <h5 class="card-title">${mobileDetail.name}</h5>
-        <p class="card-text">${mobileDetail.releaseDate}</p>
-        </div>
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item">An item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        </ul>
-        <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <h1 class="card-title fw-bold text-secondary">${mobileInfo.name}</h1>
+        <span class="text-muted">Release : ${resultCondition(mobileInfo.releaseDate)}</span>
+        <h4 class="card-title text-success mt-3">Main Features</h4>
+        <p class="card-text"><span class="fw-bolder">Sensors :</span> ${resultCondition(mobileInfo.mainFeatures.sensors.slice( 0 , 10))}</p>
+        <p class="card-text"><span class="fw-bolder">Storage :</span> ${resultCondition(mobileInfo.mainFeatures.storage)}</p>
+        <p class="card-text"><span class="fw-bolder">Memory :</span> ${resultCondition(mobileInfo.mainFeatures.memory)}</p>
+        <p class="card-text"><span class="fw-bolder">Storage :</span> ${resultCondition(mobileInfo.mainFeatures.storage)}</p>
+        <p class="card-text"><span class="fw-bolder">Display :</span> ${resultCondition(mobileInfo.mainFeatures.displaySize)}</p>
+        <h4 class="card-title text-success mt-5 mb-3">Other Features</h4>
+        <p class="card-text"><span class="fw-bolder">WLAN :</span> ${resultCondition(mobileInfo.others.WLAN)}</p>
+        <p class="card-text"><span class="fw-bolder">Bluetooth :</span> ${resultCondition(mobileInfo.others.Bluetooth)}</p>
+        <p class="card-text"><span class="fw-bolder">GPS :</span> ${resultCondition(mobileInfo.others.GPS)}</p>
+        <p class="card-text"><span class="fw-bolder">NFC :</span> ${resultCondition(mobileInfo.others.NFC)}</p>
+        <p class="card-text"><span class="fw-bolder">Radio :</span> ${resultCondition(mobileInfo.others.Radio)}</p>
+        <p class="card-text"><span class="fw-bolder">USB :</span> ${resultCondition(mobileInfo.others.USB)}</p>
         </div>
     `;
     resultDetail.appendChild(div)
