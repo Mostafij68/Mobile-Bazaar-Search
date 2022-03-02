@@ -1,22 +1,33 @@
 const searchMobile = () => {
     const searchField = document.getElementById('search-field');
     const searchFieldText = searchField.value;
-    // searchField.value = '';
+    searchField.value = '';
+    const errorMessage = document.getElementById('error-message');
 
     // Mobile url
-    const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldText}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayResult(data.data))
+    if(searchFieldText == ''){
+        errorMessage.style.display = 'block';
+    }
+    else{
+        errorMessage.textContent = '';
+        const url = `https://openapi.programming-hero.com/api/phones?search=${searchFieldText}`;
+        fetch(url)
+        .then(res => res.json())
+        .then(data => displayResult(data.data))
+    }
 }
 
 // display result
 const displayResult = (mobiles) => {
-    console.log(mobiles)
+    // console.log(mobiles)
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
+    // show more btn
+    const showMore = document.getElementById('show-more');
+    showMore.style.display = 'block';
 
-    mobiles.forEach(mobile => {
+    const phones = mobiles.slice(0, 20);
+    phones.forEach(mobile => {
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -28,9 +39,28 @@ const displayResult = (mobiles) => {
                     <button onclick="loadMobileId('${mobile.slug}')" class="btn  btn-outline-info">More Details</button>
                 </div>
             </div>
-        `
-        searchResult.appendChild(div)
-    })
+        `;
+        searchResult.appendChild(div);
+        const displayResult = (mobiles) => {
+            const searchResult = document.getElementById('search-result');
+            searchResult.textContent = '';
+            mobiles.forEach(mobile => {
+                const div = document.createElement('div');
+                div.classList.add('col');
+                div.innerHTML = `
+                    <div class="card shadow h-100">
+                        <img src="${mobile.image}" class="card-img-top p-4" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">${mobile.phone_name}</h5>
+                            <p class="card-text">${mobile.brand}</p>
+                            <button onclick="loadMobileId('${mobile.slug}')" class="btn  btn-outline-info">More Details</button>
+                        </div>
+                    </div>
+                `;
+                searchResult.appendChild(div);
+            })
+    }
+    });
 }
 
  // Mobile id url
@@ -42,6 +72,7 @@ const loadMobileId = mobileId => {
     .then(data => displayResultDetail(data.data))
 };
 
+// display mobile detail
 const displayResultDetail = (mobileInfo) => {
     console.log(mobileInfo)
     const resultDetail = document.getElementById('rasult-detail');
@@ -57,6 +88,7 @@ const displayResultDetail = (mobileInfo) => {
     };
     const div = document.createElement('div');
     div.classList.add('card');
+    div.classList.add('shadow');
     div.innerHTML = `
         <img src="${mobileInfo.image}" class="card-img-top p-5" alt="...">
         <div class="card-body">
@@ -75,6 +107,7 @@ const displayResultDetail = (mobileInfo) => {
         <p class="card-text"><span class="fw-bolder">NFC :</span> ${resultCondition(mobileInfo.others.NFC)}</p>
         <p class="card-text"><span class="fw-bolder">Radio :</span> ${resultCondition(mobileInfo.others.Radio)}</p>
         <p class="card-text"><span class="fw-bolder">USB :</span> ${resultCondition(mobileInfo.others.USB)}</p>
+        <a href="#" class="btn btn-info my-3">Add to Cart</a>
         </div>
     `;
     resultDetail.appendChild(div)
