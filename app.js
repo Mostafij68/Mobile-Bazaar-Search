@@ -1,6 +1,12 @@
+// spinner
+const toggleSpinner = displayStyle => {
+    document.getElementById('spinner').style.display = displayStyle;
+};
+// seacrh button
 const searchMobile = () => {
-
     const searchField = document.getElementById('search-field');
+    // spinner
+    toggleSpinner('block');
     const searchFieldText = searchField.value;
     searchField.value = '';
     const errorMessage = document.getElementById('error-message');
@@ -8,6 +14,7 @@ const searchMobile = () => {
     // Mobile url
     if(searchFieldText == ''){
         errorMessage.style.display = 'block';
+        toggleSpinner('none');
     }
     else{
         errorMessage.textContent = '';
@@ -42,7 +49,7 @@ const displayResult = (mobiles) => {
         searchResult.appendChild(div);
         showMore.style.display = 'block';
     });
-    
+    toggleSpinner('none');
 }
 
  // Mobile id url
