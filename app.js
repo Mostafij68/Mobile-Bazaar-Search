@@ -1,4 +1,5 @@
 const searchMobile = () => {
+
     const searchField = document.getElementById('search-field');
     const searchFieldText = searchField.value;
     searchField.value = '';
@@ -19,13 +20,11 @@ const searchMobile = () => {
 
 // display result
 const displayResult = (mobiles) => {
-    // console.log(mobiles)
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
     // show more btn
     const showMore = document.getElementById('show-more');
-    showMore.style.display = 'block';
-
+    
     const phones = mobiles.slice(0, 20);
     phones.forEach(mobile => {
         const div = document.createElement('div');
@@ -41,26 +40,9 @@ const displayResult = (mobiles) => {
             </div>
         `;
         searchResult.appendChild(div);
-        const displayResult = (mobiles) => {
-            const searchResult = document.getElementById('search-result');
-            searchResult.textContent = '';
-            mobiles.forEach(mobile => {
-                const div = document.createElement('div');
-                div.classList.add('col');
-                div.innerHTML = `
-                    <div class="card shadow h-100">
-                        <img src="${mobile.image}" class="card-img-top p-4" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">${mobile.phone_name}</h5>
-                            <p class="card-text">${mobile.brand}</p>
-                            <button onclick="loadMobileId('${mobile.slug}')" class="btn  btn-outline-info">More Details</button>
-                        </div>
-                    </div>
-                `;
-                searchResult.appendChild(div);
-            })
-    }
+        showMore.style.display = 'block';
     });
+    
 }
 
  // Mobile id url
@@ -74,7 +56,6 @@ const loadMobileId = mobileId => {
 
 // display mobile detail
 const displayResultDetail = (mobileInfo) => {
-    console.log(mobileInfo)
     const resultDetail = document.getElementById('rasult-detail');
     resultDetail.textContent = '';
     const resultCondition = condition =>{
